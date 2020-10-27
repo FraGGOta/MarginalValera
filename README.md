@@ -1,4 +1,4 @@
-# Ruby Lab3
+# Ruby Project
 ## MarginalValera
 
 ![Unit Tests & Lint](https://github.com/JokePenny/MarginalValera/workflows/Unit%20Tests%20&%20Lint/badge.svg)
@@ -10,7 +10,6 @@ gem install bundler
 bundle install
 ```
 
-## Tests and rubocop are run from Lab1 and Lab2 folders respectively
 ## Run test
 
 ```bash
@@ -20,53 +19,59 @@ rspec
 ## Run rubocop
 
 ```bash
-rubocop
-rubocop -a # Auto-correct offenses
+rubocop -a 
 ```
 
-### Параметры Валеры
- - Здоровью (0; 100)
- - Мана (Алкоголь в крови) (0; 100)
- - Жизнерадостность (-10; 10)
- - Усталость (0; 100)
- - Деньги
+### Valera parameters
+ - health (0; 100)
+ - mana (0; 100)
+ - fun (-10; 10)
+ - tire (0; 100)
+ - money
 
-### Возможные действия:
-##### Пойти на работу (Можно только если алкоголь < 50 а усталость < 10)
-- `-`5 Жизнерадостность
-- `-`30 Мана (Алкоголь в крови)
+### Possible actions: 
+
+##### Go to work (Only possible if alcohol < 50 and fatigue < 10)
+- `-`5 fun
+- `-`30 mana
 - `+`$100
-- `+`70 усталость
-##### Созерцать природу
-- `+`1 Жизнерадостность
-- `-`10 Мана (Алкоголь в крови)
-- `+`10 усталость
-##### Пить вино и смотреть сериал
-- `-`1 Жизнерадостность
-- `+`30 Мана (Алкоголь в крови)
-- `+`10 Усталость
-- `-`5 Здоровью
+- `+`70 tire
+
+##### Contemplate nature
+- `+`1 fun
+- `-`10 mana
+- `+`10 tire
+
+##### Drink wine and watch TV series
+- `-`1 fun
+- `+`30 mana
+- `+`10 tire
+- `-`5 health
 - `-`$20
-##### Сходить в бар:
-- `+`1 Жизнерадостность
-- `+`60 Мана (Алкоголь в крови)
-- `+`40 Усталость
-- `-`10 Здоровью
+
+##### Go to a bar:
+- `+`1 fun
+- `+`60 mana
+- `+`40 tire
+- `-`10 health
 - `-`$100
-##### Выпить с маргинальными личностями
--  `+`5 Жизнерадостность
--  `-`80 здоровье
-- `+`90 Мана (Алкоголь в крови)
-- `+`80 усталость
+
+##### Drinking with marginalized individuals
+- `+`5 fun
+- `-`80 health
+- `+`90 mana
+- `+`80 tire
 - `-`$150
-##### Петь в метро:
-- `+`1 Жизнерадостность
-- `+`10 Мана (Алкоголь в крови)
-- `+`$10 (еще + $50 если изначально алкоголь был > 40 & < 70)
-- `+`20 усталость
-##### Спать
-- `+`90 здоровье если алкоголь < 30
-- `-`3 Жизнерадостность если алкоголь > 70
-- `-`50 Мана (Алкоголь в крови)
-- `-`70 усталость
+
+##### Sing in the subway:
+- `+`1 fun
+- `+`10 mana
+- `+`$10 (+ $50 more if alcohol was originally > 40 & < 70)
+- `+`20 tire
+
+##### Sleep
+- `+`90 health if alcohol <30
+- `-`3 fun if alcohol> 70
+- `-`50 mana
+- `-`70 tire
 
