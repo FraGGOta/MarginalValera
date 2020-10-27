@@ -25,7 +25,7 @@ class Main
   def start
     console
     game = Game.new(@valera, @config.fdata)
-    while @valera.health > 0
+    while @valera.health.positive?
       MyFile.new.read_file
       print_stats
 
