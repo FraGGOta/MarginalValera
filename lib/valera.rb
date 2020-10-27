@@ -6,7 +6,7 @@ class Valera
       'health' => health,
       'mana' => mana,
       'positive' => positive,
-      'tiredness' => tire,
+      'tiredness' => tiredness,
       'money' => money
     }
   end
