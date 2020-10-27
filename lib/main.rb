@@ -1,7 +1,6 @@
 class Main
-  def start()
-  end
+  def start; end
 end
 
 main = Main.new
-main.start()
+main.start
