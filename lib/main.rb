@@ -23,18 +23,22 @@ class Main
   end
 
   def start
-    MyFile.new.read_file
-
     console
-    print_stats
     game = Game.new(@valera, @config.fdata)
+    while @valera.health > 0
+      MyFile.new.read_file
+      print_stats
 
-    inpt = Input.new.input_choice
+      inpt = Input.new.input_choice
 
-    game.game_loop_first(inpt)
-    game.game_loop_second(inpt)
+      game.game_loop_first(inpt)
+      game.game_loop_second(inpt)
 
-    exit if inpt == 9
+      exit if inpt == '9'
+      system('cls') # windows
+    end
+
+    puts 'Game over' if @valera.health <= 0
   end
 end
 

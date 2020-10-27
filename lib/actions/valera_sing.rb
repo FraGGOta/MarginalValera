@@ -16,6 +16,11 @@ class ValeraSing < ValeraActions
   def bonus_money
     first_condition = @valera.mana > @stats['money_bonus_mana_min']
     second_condition = @valera.mana < @stats['money_bonus_mana_max']
-    @valera.money += @stats['money_bonus'] if first_condition && second_condition
+
+    if first_condition && second_condition
+	  @valera.money += @stats['money_bonus']
+      puts 'Bonus accrued'
+      gets.chomp
+    end
   end
 end

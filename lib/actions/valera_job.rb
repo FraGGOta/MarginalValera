@@ -4,7 +4,11 @@ load 'lib/config_file.rb'
 
 class ValeraJob < ValeraActions
   def go_job
-    return if (@valera.mana >= 50) && mana(@valera.tiredness >= 10)
+    if (@valera.mana >= 50) && (@valera.tiredness >= 10)
+      puts 'Action is impossible. You are too drunk!'
+      gets.chomp
+      return
+    end
 
     set_health
     set_mana
