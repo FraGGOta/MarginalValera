@@ -1,0 +1,21 @@
+
+Hello, this is the game "Marginal Valera"
+
+Survive or Die!
+
+Possible actions:
+
+1. Go to work
+2. Contemplate nature
+3. Drink wine and watch TV series
+4. Go to a bar
+5. Drinking with marginalized individuals
+6. Sing in the subway
+7. Sleep
+
+Additionally:
+8. Saving / loading from file
+9. Exit
+
+Choose an action and you can start playing!
+
