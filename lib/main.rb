@@ -7,6 +7,23 @@ require_relative 'read'
 class Main
   attr_accessor :valera, :config, :settings
 
+  def looop(game)
+    while @valera.health.positive? && @valera.mana <= 100 && @valera.money >= 0
+      MyFile.new.read_file
+      print_stats
+
+      inpt = Input.new.input_choice
+
+      game.game_loop_first(inpt)
+      game.game_loop_second(inpt)
+
+      exit if inpt == '10'
+      system('cls')
+      system('clear')
+
+    end
+  end
+
   def print_stats
     puts 'Valera\'s parameters:'
     puts "health = #{@valera.health}"
@@ -25,20 +42,9 @@ class Main
   def start
     console
     game = Game.new(@valera, @config.fdata)
-    while @valera.health.positive?
-      MyFile.new.read_file
-      print_stats
+    looop(game)
 
-      inpt = Input.new.input_choice
-
-      game.game_loop_first(inpt)
-      game.game_loop_second(inpt)
-
-      exit if inpt == '9'
-      system('cls') # windows
-    end
-
-    puts 'Game over' if @valera.health <= 0
+    puts 'Game over' if @valera.health <= 0 || @valera.mana > 100 || @valera.money.negative?
   end
 end
 

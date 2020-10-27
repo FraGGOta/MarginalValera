@@ -5,7 +5,6 @@ load 'lib/config_file.rb'
 class ValeraSleep < ValeraActions
   def go_sleep
     @valera.health += @stats['health'] if @valera.mana < @stats['health_mana_max']
-
     @valera.positive += @stats['positive'] if @valera.mana > @stats['positive_mana_min']
 
     set_mana
