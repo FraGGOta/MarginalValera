@@ -4,29 +4,34 @@ load 'lib/valera.rb'
 class SaveFile
   attr_accessor :ini
 
-  def load
+  def initialize
     @ini = IniFile.load('appdata/save.ini')
-    make_valera if !@ini.nil? && !@ini['default'].nil?
+  end
+
+  def load
+    Valera.new(@ini['default']) if !@ini.nil? && !@ini['default'].nil?
   end
 
   def save(valera)
-    @ini['default']['health'] = valera.health
-    @ini['default']['mana'] = valera.mana
-    @ini['default']['positive'] = valera.positive
-    @ini['default']['tiredness'] = valera.tiredness
-    @ini['default']['money'] = valera.money
+    create_file if @ini.nil?
+    update_ini(valera)
     write
   end
 
   private
 
-  def make_valera
-    health = @ini['default']['health']
-    mana = @ini['default']['mana']
-    positive = @ini['default']['positive']
-    tiredness = @ini['default']['tiredness']
-    money = @ini['default']['money']
-    Valera.new(health, mana, positive, tiredness, money)
+  def create_file
+    f = File.open('appdata/save.ini', 'w')
+    f.close
+    @ini = IniFile.load('appdata/save.ini')
+  end
+
+  def update_ini(valera)
+    @ini['default']['health'] = valera.health
+    @ini['default']['mana'] = valera.mana
+    @ini['default']['positive'] = valera.positive
+    @ini['default']['tiredness'] = valera.tiredness
+    @ini['default']['money'] = valera.money
   end
 
   def write
