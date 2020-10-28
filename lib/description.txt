@@ -1,23 +1,19 @@
--------------------------------------------
-|Hello, this is the game "Marginal Valera"|
--------------------------------------------
-
-Survive or Die!
-
-Possible actions:
-
-1. Go to work					
-2. Contemplate nature			
-3. Drink wine and watch serial		
-4. Go to a bar				
-5. Drinking with marginalized individuals	
-6. Sing in the subway				
-7. Sleep					
-
-Additionally:
-8.Saving 					
-9 Loading 				
-10. Exit					
-
-Choose an action and you can start playing!
-
+ .                                                                                                            .
+ |\__________________________________________________________________________________________________________/|
+ |   .                       .            ~ A deadly survival game ~                               .      .   |
+ + ~ | What am i going to do |          ______         _                                           | Menu | ~ +
+ |                                      | ___ \       | |                                                     |
+ + ~ [1] Go to work                     | |_/ /  __ _ | |  ___  _ __    __ _                       Save [S] ~ +
+ |                                      | ___ \ / _` || | / _ \| '_ \  / _` |                                 |
+ + ~ [2] Behold nature                  | |_/ /| (_| || ||  __/| |_) || (_| |                      Load [L] ~ +
+ |                                      \____/  \__,_||_| \___|| .__/  \__,_|                                 |
+ + ~ [3] Drink wine and watch series                           | |                                 Quit [Q] ~ +
+ |                                                             |_|                                            |
+ + ~ [4] Go to a bar                     _____  _            ___  ___                     _                _  |
+ |                                      |_   _|| |           |  \/  |               __ _ (_)              | | |
+ + ~ [5] Drinking with marginals          | |  | |__    ___  | .  . |  __ _  _ __  / _` | _  _ __    __ _ | | |
+ |                                        | |  | '_ \  / _ \ | |\/| | / _` || '__|| (_| || || '_ \  / _` || | |
+ + ~ [6] Sing in the subway               | |  | | | ||  __/ | |  | || (_| || |    \__, || || | | || (_| || | |
+ |                                        \_/  |_| |_| \___| \_|  |_/ \__,_||_|     __/ ||_||_| |_| \__,_||_| |
+ + ~ [7] Sleep                                                                     |___/                      |
+ \____________________________________________________________________________________________________________/

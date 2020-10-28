@@ -24,13 +24,25 @@ class Main
     end
   end
 
+  def print_stats_header
+    puts
+    puts '     .                .'
+    puts ' + ~ | Valera\'s stats |'
+    puts ' |'
+  end
+
   def print_stats
-    puts 'Valera\'s parameters:'
-    puts "health = #{@valera.health}"
-    puts "mana = #{@valera.mana}"
-    puts "positive = #{@valera.positive}"
-    puts "tiredness = #{@valera.tiredness}"
-    puts "money = #{@valera.money}"
+    print_stats_header
+    puts " + ~ [HP]           #{@valera.health}"
+    puts ' |'
+    puts " + ~ [MANA]         #{@valera.mana}"
+    puts ' |'
+    puts " + ~ [POSITIVE]     #{@valera.positive}"
+    puts ' |'
+    puts " + ~ [TIREDNESS]    #{@valera.tiredness}"
+    puts ' |'
+    puts " + ~ [MONEY]        #{@valera.money}"
+    puts
   end
 
   def console
@@ -44,7 +56,13 @@ class Main
     game = Game.new(@valera, @config.fdata)
     looop(game)
 
-    puts 'Game over' if @valera.health <= 0 || @valera.mana > 100 || @valera.money.negative?
+    print_died_message if @valera.health <= 0 || @valera.mana > 100 || @valera.money.negative?
+  end
+
+  def print_died_message
+    MyFile.new.read_file
+    print_stats
+    puts '                                                 ~ YOU DIED ~'
   end
 end
 
