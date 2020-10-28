@@ -8,4 +8,12 @@ class Valera
     @tiredness = setting['tiredness']
     @money = setting['money']
   end
+
+  def set_stats(health, mana, positive, tiredness, money)
+    @health = health
+    @mana = mana
+    @positive = positive
+    @tiredness = tiredness
+    @money = money
+  end
 end
