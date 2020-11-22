@@ -13,6 +13,10 @@ class Game
     @config = config
   end
 
+  def set_valera(valera_new)
+    @valera = valera_new
+  end
+
   def game_loop_first(choise_action)
     case choise_action
     when '1'

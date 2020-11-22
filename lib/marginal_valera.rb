@@ -5,8 +5,6 @@ require_relative 'input'
 require_relative 'save_file'
 
 class MarginalValera
-  attr_accessor :valera, :config, :game, :description, :inpt, :messages
-
   def initialize
     @description = File.new('./gamedata/description.txt', 'r:UTF-8').read
     @messages =
@@ -23,11 +21,15 @@ class MarginalValera
         'l' => '                                                  ~ Game loaded ~',
         'nl' => '                                     ~ Game coldn\'t be loaded from this slot ~'
       }
+    @config = ConfigFile.new
+    @valera = Valera.new(@config.fdata['default'])
+    @inpt = 'n'
+    @game = Game.new(@valera, @config.fdata)
   end
 
   def menu_new
     @valera = Valera.new(config.fdata['default'])
-    @game.valera = @valera
+    @game.set_valera(@valera)
   end
 
   def menu_save
@@ -44,7 +46,7 @@ class MarginalValera
       @inpt = 'nl'
     else
       @valera = valera_new
-      @game.valera = valera_new
+      @game.set_valera(valera_new)
     end
   end
 
@@ -90,7 +92,7 @@ class MarginalValera
   end
 
   def print_game
-    puts description
+    puts @description
     puts
     print_message
     print "\n     .                .\n + ~ | Valera\'s stats |\n |\n"
@@ -103,9 +105,6 @@ class MarginalValera
   end
 
   def start
-    create_valera
-    @inpt = 'n'
-    @game = Game.new(@valera, @config.fdata)
     looop
     print_died_message if @valera.health <= 0 || @valera.mana > 100 || @valera.money.negative?
   end
