@@ -29,7 +29,7 @@ class MarginalValera
 
   def menu_new
     @valera = Valera.new(config.fdata['default'])
-    @game.set_valera(@valera)
+    @game.valera_set(@valera)
   end
 
   def menu_save
@@ -46,7 +46,7 @@ class MarginalValera
       @inpt = 'nl'
     else
       @valera = valera_new
-      @game.set_valera(valera_new)
+      @game.valera_set(valera_new)
     end
   end
 

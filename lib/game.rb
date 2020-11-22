@@ -13,7 +13,7 @@ class Game
     @config = config
   end
 
-  def set_valera(valera_new)
+  def valera_set(valera_new)
     @valera = valera_new
   end
 
