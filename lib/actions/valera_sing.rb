@@ -2,7 +2,7 @@ require_relative 'valera_action'
 load 'lib/valera.rb'
 load 'lib/config_file.rb'
 
-class ValeraSing < ValeraActions
+class ValeraSing < Actions::ValeraActions::Based
   def go_sing
     bonus_money
     set_health

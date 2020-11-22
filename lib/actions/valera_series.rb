@@ -2,7 +2,7 @@ require_relative 'valera_action'
 load 'lib/valera.rb'
 load 'lib/config_file.rb'
 
-class ValeraSeries < ValeraActions
+class ValeraSeries < Actions::ValeraActions::Based
   def go_series
     set_health
     set_mana

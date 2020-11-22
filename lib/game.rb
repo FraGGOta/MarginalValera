@@ -8,8 +8,6 @@ require_relative 'actions/valera_series'
 require_relative 'actions/valera_action'
 
 class Game
-  attr_accessor :valera, :config
-
   def initialize(valera, config)
     @valera = valera
     @config = config
