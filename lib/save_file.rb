@@ -2,39 +2,36 @@ require 'inifile'
 load 'lib/valera.rb'
 
 class SaveFile
-  attr_accessor :ini
-
-  def initialize
-    @ini = IniFile.load('appdata/save.ini')
+  def load(slot)
+    ini = IniFile.load("appdata/save_#{slot}.ini")
+    Valera.new(ini['default']) if !ini.nil? && !ini['default'].nil?
   end
 
-  def load
-    Valera.new(@ini['default']) if !@ini.nil? && !@ini['default'].nil?
-  end
-
-  def save(valera)
-    create_file if @ini.nil?
-    update_ini(valera)
-    write
+  def save(slot, valera)
+    ini = IniFile.load("appdata/save_#{slot}.ini")
+    ini = create_file(slot) if ini.nil?
+    ini = update_ini(valera, ini)
+    write(ini)
   end
 
   private
 
-  def create_file
-    f = File.open('appdata/save.ini', 'w')
+  def create_file(slot)
+    f = File.open("appdata/save_#{slot}.ini", 'w')
     f.close
-    @ini = IniFile.load('appdata/save.ini')
+    IniFile.load("appdata/save_#{slot}.ini")
   end
 
-  def update_ini(valera)
-    @ini['default']['health'] = valera.health
-    @ini['default']['mana'] = valera.mana
-    @ini['default']['positive'] = valera.positive
-    @ini['default']['tiredness'] = valera.tiredness
-    @ini['default']['money'] = valera.money
+  def update_ini(valera, ini)
+    ini['default']['health'] = valera.health
+    ini['default']['mana'] = valera.mana
+    ini['default']['positive'] = valera.positive
+    ini['default']['tiredness'] = valera.tiredness
+    ini['default']['money'] = valera.money
+    ini
   end
 
-  def write
+  def write(ini)
     ini.write
   end
 end
