@@ -1,6 +1,6 @@
 require_relative 'valera_action'
-load 'lib/valera.rb'
-load 'lib/config_file.rb'
+require_relative '../valera.rb'
+require_relative '../config_file.rb'
 
 class ValeraSeries < Actions::ValeraActions::Based
   def go_series
