@@ -11,22 +11,40 @@ class Main
     @description = File.new('./gamedata/description.txt', 'r:UTF-8').read
   end
 
+  def menu_new
+    @valera = Valera.new(config.fdata['default'])
+    @game.valera = @valera
+  end
+
+  def menu_save
+    puts '                                        ~ Enter the slot number to save ~'
+    print ' > '
+    save_id = $stdin.gets
+    SaveFile.new.save(save_id[0, save_id.length - 1], @valera)
+  end
+
+  def menu_load
+    puts '                                   ~ Enter the save slot number to be loaded ~'
+    print ' > '
+    save_id = $stdin.gets
+    valera_new = SaveFile.new.load(save_id[0, save_id.length - 1])
+    if !valera_new.nil?
+      @valera = valera_new
+      @game.valera = valera_new
+    else
+      puts '                                          ~ Valera coldn\'t be loaded ~'
+      gets
+    end
+  end
+
   def menu_chosen(choise_action)
     case choise_action
     when 'n'
-      @valera = Valera.new(config.fdata['default'])
-      @game.valera = @valera
+      menu_new
     when 's'
-      SaveFile.new.save(@valera)
+      menu_save
     when 'l'
-      valera_new = SaveFile.new.load
-      if !valera_new.nil?
-        @valera = valera_new
-        @game.valera = valera_new
-      else
-        puts '                                          ~ Valera coldn\'t be loaded ~'
-        gets
-      end
+      menu_load
     when 'q'
       exit
     end
