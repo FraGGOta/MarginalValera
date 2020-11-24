@@ -7,11 +7,12 @@ require_relative 'save_file'
 class MarginalValera
   def initialize
     @description = File.new('./gamedata/description.txt', 'r:UTF-8').read
-    @messages = IniFile.load('gamedata/ingame_messages.ini')['default']
-    @config = IniFile.load('appdata/config.ini')
+    @messages = IniFile.load('./gamedata/ingame_messages.ini')['default']
+    @config = IniFile.load('./appdata/config.ini')
     @valera = Valera.new(@config['default'])
     @inpt = 'n'
     @game = Game.new(@valera, @config)
+    @sv = SaveFile.new
   end
 
   def menu_new
@@ -19,18 +20,41 @@ class MarginalValera
     @game.valera_set(@valera)
   end
 
+  def print_existing_saves
+    saves_list = @sv.get_saves_list
+
+    if saves_list.length.zero?
+      puts "\n     .                .\n + ~ | No existing saves yet |\n"
+      puts
+      return
+    end
+    puts "\n     .                .\n + ~ | Existing saves |\n"
+    saves_list.each do |i|
+      puts " |\n + ~ [#{i}]\n"
+    end
+    puts
+  end
+
   def menu_save
-    sv = SaveFile.new
-    print "                                        ~ Enter the slot number to save ~ \n > "
+    system('cls')
+    system('clear')
+    puts @description
+    puts '                                         ~ Enter the slot name to save ~'
+    print_existing_saves
+    print ' > '
     save_id = $stdin.gets
-    sv.save(save_id[0, save_id.length - 1], @valera)
+    @sv.save(save_id[0, save_id.length - 1], @valera)
   end
 
   def menu_load
-    sv = SaveFile.new
-    print "                                   ~ Enter the save slot number to be loaded ~ \n > "
+    system('cls')
+    system('clear')
+    puts @description
+    puts '                                    ~ Enter the save slot name to be loaded ~'
+    print_existing_saves
+    print ' > '
     save_id = $stdin.gets
-    valera_new = sv.load(save_id[0, save_id.length - 1])
+    valera_new = @sv.load(save_id[0, save_id.length - 1])
     if valera_new.nil?
       @inpt = 'nl'
     else

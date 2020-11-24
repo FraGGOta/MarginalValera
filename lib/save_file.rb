@@ -14,6 +14,14 @@ class SaveFile
     write(ini)
   end
 
+  def saves_list_get
+    saves_list = Dir['./appdata/save_*.ini']
+    (0..saves_list.length - 1).each do |i|
+      saves_list[i] = saves_list[i][15..saves_list[i].length - 5]
+    end
+    saves_list
+  end
+
   private
 
   def create_file(slot)
