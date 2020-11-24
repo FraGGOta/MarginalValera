@@ -17,8 +17,8 @@ class Game
     @valera = valera_new
   end
 
-  def game_loop_first(choise_action)
-    case choise_action
+  def game_loop_first(choice_action)
+    case choice_action
     when '1'
       ValeraJob.new(@config['job'], @valera).go_job
     when '2'
@@ -30,8 +30,8 @@ class Game
     end
   end
 
-  def game_loop_second(choise_action)
-    case choise_action
+  def game_loop_second(choice_action)
+    case choice_action
     when '5'
       ValeraDrink.new(@config['drink'], @valera).go_drink
     when '6'
