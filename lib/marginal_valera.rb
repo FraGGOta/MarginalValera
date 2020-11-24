@@ -21,10 +21,10 @@ class MarginalValera
   end
 
   def print_existing_saves
-    saves_list = @sv.get_saves_list
+    saves_list = @sv.saves_list_get
 
     if saves_list.length.zero?
-      puts "\n     .                .\n + ~ | No existing saves yet |\n"
+      puts "\n     .                       .\n + ~ | No existing saves yet |\n"
       puts
       return
     end
@@ -80,8 +80,7 @@ class MarginalValera
     while @valera.health.positive? && @valera.mana <= 100 && @valera.money >= 0
       print_game
       @inpt = Input.new.input_choice
-      @game.game_loop_first(@inpt)
-      @game.game_loop_second(@inpt)
+      @game.game_loop(@inpt)
       menu_chosen
     end
   end
