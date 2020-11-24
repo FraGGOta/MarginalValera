@@ -1,6 +1,5 @@
 require_relative 'valera_action'
 require_relative '../valera'
-require_relative '../config_file'
 
 class ValeraDrink < Actions::ValeraActions::Based
   def go_drink

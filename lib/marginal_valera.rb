@@ -1,5 +1,5 @@
+require 'inifile'
 require_relative 'valera'
-require_relative 'config_file'
 require_relative 'game'
 require_relative 'input'
 require_relative 'save_file'
@@ -7,41 +7,30 @@ require_relative 'save_file'
 class MarginalValera
   def initialize
     @description = File.new('./gamedata/description.txt', 'r:UTF-8').read
-    @messages =
-      {
-        '1' => '                                               ~ You went to work ~',
-        '2' => '                                           ~ You are beholding nature ~',
-        '3' => '                                       ~ You drink wine and watch series ~',
-        '4' => '                                             ~ You went to the bar ~',
-        '5' => '                                         ~ You drinking with marginals ~',
-        '6' => '                                          ~ You singing on the subway ~',
-        '7' => '                                                 ~ You to sleep ~',
-        'n' => '                                                ~ New game begun ~',
-        's' => '                                                  ~ Game saved ~',
-        'l' => '                                                  ~ Game loaded ~',
-        'nl' => '                                     ~ Game coldn\'t be loaded from this slot ~'
-      }
-    @config = ConfigFile.new
-    @valera = Valera.new(@config.fdata['default'])
+    @messages = IniFile.load('gamedata/ingame_messages.ini')['default']
+    @config = IniFile.load('appdata/config.ini')
+    @valera = Valera.new(@config['default'])
     @inpt = 'n'
-    @game = Game.new(@valera, @config.fdata)
+    @game = Game.new(@valera, @config)
   end
 
   def menu_new
-    @valera = Valera.new(config.fdata['default'])
+    @valera = Valera.new(@config['default'])
     @game.valera_set(@valera)
   end
 
   def menu_save
+    sv = SaveFile.new
     print "                                        ~ Enter the slot number to save ~ \n > "
     save_id = $stdin.gets
-    SaveFile.new.save(save_id[0, save_id.length - 1], @valera)
+    sv.save(save_id[0, save_id.length - 1], @valera)
   end
 
   def menu_load
+    sv = SaveFile.new
     print "                                   ~ Enter the save slot number to be loaded ~ \n > "
     save_id = $stdin.gets
-    valera_new = SaveFile.new.load(save_id[0, save_id.length - 1])
+    valera_new = sv.load(save_id[0, save_id.length - 1])
     if valera_new.nil?
       @inpt = 'nl'
     else
@@ -63,58 +52,38 @@ class MarginalValera
     end
   end
 
-  def looop
+  def main_game_loop
     while @valera.health.positive? && @valera.mana <= 100 && @valera.money >= 0
-      system('cls')
-      system('clear')
       print_game
       @inpt = Input.new.input_choice
       @game.game_loop_first(@inpt)
       @game.game_loop_second(@inpt)
       menu_chosen
-
-      system('cls')
-      system('clear')
     end
   end
 
-  def print_stats
-    puts " + ~ [HP]           #{@valera.health}"
-    puts ' |'
-    puts " + ~ [MANA]         #{@valera.mana}"
-    puts ' |'
-    puts " + ~ [POSITIVE]     #{@valera.positive}"
-    puts ' |'
-    puts " + ~ [TIREDNESS]    #{@valera.tiredness}"
-    puts ' |'
-    puts " + ~ [MONEY]        #{@valera.money}"
-    puts
-  end
-
   def print_game
+    system('cls')
+    system('clear')
     puts @description
-    puts
-    print_message
-    print "\n     .                .\n + ~ | Valera\'s stats |\n |\n"
-    print_stats
-  end
-
-  def create_valera
-    @config = ConfigFile.new
-    @valera = Valera.new(@config.fdata['default'])
+    puts @messages[@inpt]
+    puts "\n     .                .\n + ~ | Valera\'s stats |\n"
+    puts " |\n + ~ [HP]           #{@valera.health}\n"
+    puts " |\n + ~ [MANA]         #{@valera.mana}\n"
+    puts " |\n + ~ [POSITIVE]     #{@valera.positive}\n"
+    puts " |\n + ~ [TIREDNESS]    #{@valera.tiredness}\n"
+    puts " |\n + ~ [MONEY]        #{@valera.money}\n\n"
   end
 
   def start
-    looop
-    print_died_message if @valera.health <= 0 || @valera.mana > 100 || @valera.money.negative?
-  end
-
-  def print_message
-    puts @messages[@inpt]
-  end
-
-  def print_died_message
+    main_game_loop
+    if @valera.health <= 0
+      @inpt = 'dh'
+    elsif @valera.mana > 100
+      @inpt = 'da'
+    elsif @valera.money.negative?
+      @inpt = 'dm'
+    end
     print_game
-    puts '                                                 ~ YOU DIED ~'
   end
 end

@@ -1,6 +1,5 @@
 require_relative 'valera_action'
 require_relative '../valera'
-require_relative '../config_file'
 
 module Actions
   module ValeraActions
