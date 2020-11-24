@@ -19,5 +19,11 @@ RSpec.describe SaveFile do
       valera = save_file.load('2')
       expect(valera).to eq nil
     end
+
+    it 'Get saves list' do
+      saves_list = save_file.saves_list_get
+      expect(saves_list.length).to eq 1
+      expect(saves_list[0]).to eq '1'
+    end
   end
 end
