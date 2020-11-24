@@ -2,8 +2,8 @@ require './lib/save_file'
 
 RSpec.describe SaveFile do
   describe 'Save and load file' do
-    let(:config) { ConfigFile.new }
-    let(:settings) { config.fdata['default'] }
+    let(:config) { IniFile.load('appdata/config.ini') }
+    let(:settings) { config['default'] }
     let(:valera_expected) { Valera.new(settings) }
     let(:valera) { Valera.new(settings) }
     let(:save_file) { SaveFile.new }

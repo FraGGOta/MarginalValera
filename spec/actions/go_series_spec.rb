@@ -2,12 +2,12 @@ require './lib/actions/valera_series'
 
 RSpec.describe Actions::ValeraActions do
   describe 'Go Series' do
-    let(:config) { ConfigFile.new }
-    let(:settings) { config.fdata['default'] }
+    let(:config) { IniFile.load('appdata/config.ini') }
+    let(:settings) { config['default'] }
     let(:valera) { Valera.new(settings) }
 
     it 'go series' do
-      ValeraSeries.new(config.fdata['series'], valera).go_series
+      ValeraSeries.new(config['series'], valera).go_series
       expect(valera.health).to eq(95)
       expect(valera.mana).to eq(30)
       expect(valera.positive).to eq(-10)

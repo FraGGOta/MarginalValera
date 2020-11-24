@@ -2,8 +2,8 @@ require './lib/valera'
 
 RSpec.describe Actions::ValeraActions do
   describe 'Valera Default' do
-    let(:config) { ConfigFile.new }
-    let(:settings) { config.fdata['default'] }
+    let(:config) { IniFile.load('appdata/config.ini') }
+    let(:settings) { config['default'] }
     let(:valera) { Valera.new(settings) }
 
     it 'start config' do

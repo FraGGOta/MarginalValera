@@ -2,12 +2,12 @@ require './lib/actions/valera_bar'
 
 RSpec.describe Actions::ValeraActions do
   describe 'Go Bar' do
-    let(:config) { ConfigFile.new }
-    let(:settings) { config.fdata['default'] }
+    let(:config) { IniFile.load('appdata/config.ini') }
+    let(:settings) { config['default'] }
     let(:valera) { Valera.new(settings) }
 
     it 'go bar' do
-      ValeraBar.new(config.fdata['bar'], valera).go_bar
+      ValeraBar.new(config['bar'], valera).go_bar
       expect(valera.health).to eq(90)
       expect(valera.mana).to eq(60)
       expect(valera.positive).to eq(-10)
